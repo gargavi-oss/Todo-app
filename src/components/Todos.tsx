@@ -17,21 +17,44 @@ export default function Todos() {
         filterTodos = filterTodos.filter((todo)=>todo.completed===true);
     }
     return (
-        <ul>
-            {
-                filterTodos.map((todo:Todo)=>{
-                    return <li key={todo.id}>            
-                        <input type="checkbox" name="" id ={`todo-${todo.id}`} checked={todo.completed} onChange={()=>toggleTodosAsCompleted(todo.id)}/>
-                        <label htmlFor={`todo-${todo.id}`}>{todo.task}</label>
-                        {
-                            todo.completed && (
-                                <button type="button" onClick={()=>handleTodoDelete(todo.id)}>Delete</button>
-                            )
-                        }
-                    </li>
-                })
-            }
+        <ul className="max-w-xl mx-auto space-y-3">
+          {filterTodos.map((todo: Todo) => (
+            <li
+              key={todo.id}
+              className="flex items-center justify-between bg-white shadow rounded-lg p-4 border"
+            >
+              <div className="flex items-center gap-3">
+                <input
+                  id={`todo-${todo.id}`}
+                  type="checkbox"
+                  checked={todo.completed}
+                  onChange={() => toggleTodosAsCompleted(todo.id)}
+                  className="h-5 w-5 accent-blue-600 cursor-pointer"
+                />
+      
+                <label
+                  htmlFor={`todo-${todo.id}`}
+                  className={`cursor-pointer ${
+                    todo.completed
+                      ? "line-through text-gray-400"
+                      : "text-gray-800"
+                  }`}
+                >
+                  {todo.task}
+                </label>
+              </div>
+      
+              {todo.completed && (
+                <button
+                  onClick={() => handleTodoDelete(todo.id)}
+                  className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition"
+                >
+                  Delete
+                </button>
+              )}
+            </li>
+          ))}
         </ul>
-  )
+      );
 }
 

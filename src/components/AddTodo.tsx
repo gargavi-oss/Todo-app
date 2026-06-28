@@ -15,13 +15,28 @@ export default function AddTodo() {
         handleAddTodo(todo);
         setTodo("");
     }
-  return (
-    <div className="">
-        <form onSubmit={handleFormSubmit}>
-            <input type="text" placeholder="Write your TODO" value={todo} onChange={(e)=>setTodo(e.target.value)} name="" id="" />
-            <button type="submit">Add</button>
+    return (
+      <div className="max-w-xl mx-auto mb-8">
+        <form
+          onSubmit={handleFormSubmit}
+          className="flex gap-3"
+        >
+          <input
+            type="text"
+            placeholder="Write your TODO..."
+            value={todo}
+            onChange={(e) => setTodo(e.target.value)}
+            className="flex-1 border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+          />
+    
+          <button
+            type="submit"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 rounded-lg font-medium transition"
+          >
+            Add
+          </button>
         </form>
-    </div>
-  )
+      </div>
+    );
 }
 

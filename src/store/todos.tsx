@@ -37,9 +37,8 @@ export const TodosPovider = ({children}:{children:ReactNode})=>{
                 },
                 ...prev
             ]
-            useEffect(()=>{
+
                 localStorage.setItem("todos",JSON.stringify(newTodos));
-            },[newTodos])
             return newTodos;
         })
     }
@@ -52,9 +51,9 @@ export const TodosPovider = ({children}:{children:ReactNode})=>{
                   ? { ...todo, completed: !todo.completed }
                   : todo
               )
-              useEffect(()=>{
+
                 localStorage.setItem("todos",JSON.stringify(newTodos));
-            },[newTodos])
+
               return newTodos;
 
             }
@@ -63,9 +62,9 @@ export const TodosPovider = ({children}:{children:ReactNode})=>{
         const handleTodoDelete = (id:string)=>{
             setTodos((prev)=>{
                 const newTodos = prev.filter((todo)=>todo.id!==id)
-                useEffect(()=>{
+
                     localStorage.setItem("todos",JSON.stringify(newTodos));
-                },[newTodos])
+
                 return newTodos;
             }
             );
