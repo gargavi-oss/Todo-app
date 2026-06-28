@@ -7,6 +7,11 @@ export default function AddTodo() {
     const {handleAddTodo}= useTodos();
     const handleFormSubmit=(e:FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
+        if(todo===""){
+          console.log("Cannont add empty todo");
+          alert("Can't add empty todo");
+          return;
+        }
         handleAddTodo(todo);
         setTodo("");
     }

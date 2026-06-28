@@ -1,6 +1,6 @@
 "use client"
 
-import { Children, createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 
 export type Todo={
     id: string; 
