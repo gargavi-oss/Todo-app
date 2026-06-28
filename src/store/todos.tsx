@@ -47,7 +47,7 @@ export const TodosPovider = ({children}:{children:ReactNode})=>{
           };
         const handleTodoDelete = (id:string)=>{
             setTodos((prev)=>
-                prev.filter((todo)=>todo.id===id)
+                prev.filter((todo)=>todo.id!==id)
             )
         }
           
