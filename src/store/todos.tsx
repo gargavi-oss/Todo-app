@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
 export type Todo={
     id: string; 
@@ -19,7 +19,13 @@ export type TodosContext={
 export const todosContext = createContext<TodosContext | null>(null);
 
 export const TodosPovider = ({children}:{children:ReactNode})=>{
-    const [todos,setTodos]=useState<Todo[]>([]);
+    const [todos,setTodos]=useState<Todo[]>([])
+    useEffect(()=>{
+
+            const newTodos = localStorage.getItem("todos") || "[]";
+            setTodos(JSON.parse(newTodos) as Todo[]);
+    },[]);
+    
     const handleAddTodo=(task:string)=>{
         setTodos((prev)=>{
             const newTodos :Todo[]=[
@@ -31,25 +37,39 @@ export const TodosPovider = ({children}:{children:ReactNode})=>{
                 },
                 ...prev
             ]
+            useEffect(()=>{
+                localStorage.setItem("todos",JSON.stringify(newTodos));
+            },[newTodos])
             return newTodos;
         })
     }
    
         
         const toggleTodosAsCompleted = (id: string) => {
-            setTodos((prev) =>
-              prev.map((todo) =>
+            setTodos((prev) => {
+              const newTodos = prev.map((todo) =>
                 todo.id === id
                   ? { ...todo, completed: !todo.completed }
                   : todo
               )
+              useEffect(()=>{
+                localStorage.setItem("todos",JSON.stringify(newTodos));
+            },[newTodos])
+              return newTodos;
+
+            }
             );
           };
         const handleTodoDelete = (id:string)=>{
-            setTodos((prev)=>
-                prev.filter((todo)=>todo.id!==id)
-            )
-        }
+            setTodos((prev)=>{
+                const newTodos = prev.filter((todo)=>todo.id!==id)
+                useEffect(()=>{
+                    localStorage.setItem("todos",JSON.stringify(newTodos));
+                },[newTodos])
+                return newTodos;
+            }
+            );
+        };
           
 
     return (
